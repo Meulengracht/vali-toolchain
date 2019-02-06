@@ -4,7 +4,7 @@ mkdir -p sources
 cd sources
 
 # Dev-libraries
-sudo apt-get -qq install libelf1 libelf-dev libffi6 libffi-dev make gcc g++ git flex bison python python-pip libyaml-dev
+sudo apt-get -qq install zip libelf1 libelf-dev libffi6 libffi-dev make gcc g++ git flex bison python python-pip libyaml-dev
 pip install prettytable Mako pyaml dateutils --upgrade
 
 # cmake version 3 is required
