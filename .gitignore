@@ -1,0 +1,9 @@
+# Source directory
+sources/
+
+# Output directory
+output/
+
+# Artifacts
+*.zip
+
