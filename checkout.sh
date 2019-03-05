@@ -1,5 +1,6 @@
 #!/bin/sh
 
+mkdir -p sources
 cd sources
   
 if [ ! -d ./llvm ]; then
