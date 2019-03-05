@@ -8,4 +8,5 @@
 ./build-cross.sh
 
 # Zip up resulting builds so they can be imported
-zip -jr cross-compiler.zip $CROSS
+cd $CROSS
+zip -r cross-compiler.zip .
