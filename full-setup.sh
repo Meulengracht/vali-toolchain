@@ -4,7 +4,6 @@
 # Execute scripts in correct order
 ./depends.sh
 ./checkout.sh
-./build-clang.sh
 ./build-cross.sh
 
 # Zip up resulting builds so they can be imported
