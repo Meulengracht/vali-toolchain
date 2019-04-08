@@ -7,8 +7,9 @@
 ./build-cross.sh
 
 # Zip up resulting builds so they can be imported
-publish_path=$(pwd)
+INIT_PWD=$PWD
 cd $CROSS
 zip -r cross-compiler.zip .
-cd $(publish_path)
-mv $(CROSS)/cross-compiler.zip .
+cd $INIT_PWD
+mv $CROSS/cross-compiler.zip .
+rm $CROSS/cross-compiler.zip
