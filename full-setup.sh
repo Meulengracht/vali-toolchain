@@ -19,4 +19,3 @@ cd $CROSS
 zip -r cross-compiler.zip .
 cd $INIT_PWD
 mv $CROSS/cross-compiler.zip .
-rm $CROSS/cross-compiler.zip
