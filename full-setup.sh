@@ -1,5 +1,12 @@
 #!/bin/sh
-[ -z "$CROSS" ] && echo "Need to set CROSS directory" && exit 1;
+if [ -z ${var+x} ]; then
+  export CROSS=$PWD/build
+else 
+  echo "CROSS was set"
+fi
+
+echo "build directory is: '$CROSS'"
+mkdir -p $CROSS
 
 # Execute scripts in correct order
 ./depends.sh
