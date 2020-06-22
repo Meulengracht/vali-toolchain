@@ -1,0 +1,24 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      CROSS: ~/vali-cross-build/
+    steps:
+    - uses: actions/checkout@v2
+    - name: configure
+      run: ./full-setup.sh
+    - name: Create cross-compiler release
+      uses: Roang-zero1/github-upload-release-artifacts-action@master
+      with:
+        args: './cross-compiler.zip'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
