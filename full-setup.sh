@@ -1,5 +1,5 @@
 #!/bin/sh
-if [ -z ${var+x} ]; then
+if [ -z ${CROSS+x} ]; then
   export CROSS=$PWD/build
 else 
   echo "CROSS was set"
