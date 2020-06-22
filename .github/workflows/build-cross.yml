@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: Vali Cross Compiler CI
 
 on:
   push:
@@ -14,8 +14,8 @@ jobs:
       CROSS: ~/vali-cross-build/
     steps:
     - uses: actions/checkout@v2
-    - name: configure
-      run: ./full-setup.sh
+    - run: sudo chmod +x ./full-setup.sh
+    - run: ./full-setup.sh
     - name: Create cross-compiler release
       uses: Roang-zero1/github-upload-release-artifacts-action@master
       with:
