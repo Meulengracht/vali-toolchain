@@ -10,8 +10,6 @@ jobs:
   build:
     timeout-minutes: 0
     runs-on: ubuntu-latest
-    env:
-      CROSS: ~/vali-cross-build/
     steps:
     - uses: actions/checkout@v2
     - run: sudo chmod +x ./full-setup.sh
