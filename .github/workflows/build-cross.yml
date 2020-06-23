@@ -13,10 +13,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: sudo chmod +x ./full-setup.sh
+      name: Prepare release script
     - run: ./full-setup.sh
+      name: Build release
       timeout-minutes: 0
-    - name: Create cross-compiler release
     - uses: ncipollo/release-action@v1
+      name: Create release
       with:
         artifacts: "cross-compiler.zip"
         token: ${{ secrets.GITHUB_TOKEN }}
