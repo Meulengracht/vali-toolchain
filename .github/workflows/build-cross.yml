@@ -2,9 +2,8 @@ name: Vali Cross Compiler CI
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    tags:
+      - 'v*.*'
 
 jobs:
   build:
@@ -12,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
+      name: Set tag value
     - run: sudo chmod +x ./full-setup.sh
       name: Prepare release script
     - run: ./full-setup.sh
@@ -21,4 +22,5 @@ jobs:
       name: Create release
       with:
         artifacts: "cross-compiler.zip"
+        tag: $RELEASE_VERSION
         token: ${{ secrets.GITHUB_TOKEN }}
