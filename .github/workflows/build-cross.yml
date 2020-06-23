@@ -16,8 +16,7 @@ jobs:
     - run: ./full-setup.sh
       timeout-minutes: 0
     - name: Create cross-compiler release
-      uses: Roang-zero1/github-upload-release-artifacts-action@master
+    - uses: ncipollo/release-action@v1
       with:
-        args: './cross-compiler.zip'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: "cross-compiler.zip"
+        token: ${{ secrets.GITHUB_TOKEN }}
