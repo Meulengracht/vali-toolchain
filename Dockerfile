@@ -25,9 +25,15 @@ RUN cd output && make && make install
 # 
 FROM ubuntu:latest
 
+# Setup environmental variables
+ENV CROSS=$CROSS_PATH
+
 # Set the directory
 WORKDIR /usr/workspace/
 
 # copy all the files to the container
 COPY mkdir -p $CROSS_PATH
 COPY --from=intermediate $CROSS_PATH $CROSS_PATH
+
+# Start the bash command line
+CMD ["/bin/bash"]
