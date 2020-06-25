@@ -8,7 +8,6 @@ ARG CROSS_PATH=/usr/workspace/toolchain-out
 # Create the workspace
 WORKDIR /usr/workspace/toolchain
 
-ENV CROSS=$CROSS_PATH
 ENV DEBIAN_FRONTEND=noninteractive 
 
 # Copy the shell scripts to container
@@ -20,7 +19,7 @@ RUN apt-get update && apt-get -y -qq install git cmake libelf1 libffi7 libelf-de
 RUN python get-pip.py && pip install prettytable Mako pyaml dateutils --upgrade
 RUN ./checkout.sh
 RUN mkdir -p output && cd output && \
-    cmake -G "Unix Makefiles" -DLLVM_TEMPORARILY_ALLOW_OLD_TOOLCHAIN=True -DLLVM_ENABLE_EH=True -DLLVM_ENABLE_RTTI=True -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=Off -DLLVM_INCLUDE_EXAMPLES=Off -DCMAKE_INSTALL_PREFIX=$CROSS -DLLVM_DEFAULT_TARGET_TRIPLE=i386-pc-win32-itanium-coff ../sources/llvm
+    cmake -G "Unix Makefiles" -DLLVM_TEMPORARILY_ALLOW_OLD_TOOLCHAIN=True -DLLVM_ENABLE_EH=True -DLLVM_ENABLE_RTTI=True -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=Off -DLLVM_INCLUDE_EXAMPLES=Off -DCMAKE_INSTALL_PREFIX=$CROSS_PATH -DLLVM_DEFAULT_TARGET_TRIPLE=i386-pc-win32-itanium-coff ../sources/llvm
 RUN cd output && make && make install
 
 # 
@@ -28,8 +27,6 @@ FROM ubuntu:latest
 
 # Set the directory
 WORKDIR /usr/workspace/
-
-ENV CROSS=$CROSS_PATH
 
 # copy all the files to the container
 COPY mkdir -p $CROSS_PATH
