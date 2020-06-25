@@ -1,6 +1,6 @@
 # Initial stage is to setup the cross compiler
 # Label the image for cleaning after build process
-FROM ubuntu as intermediate
+FROM ubuntu:latest as intermediate
 LABEL stage=intermediate
 
 ARG CROSS_PATH=/usr/workspace/toolchain-out
@@ -11,9 +11,11 @@ WORKDIR /usr/workspace/
 ENV CROSS=$CROSS_PATH
 
 # Install git to clone the toolchain
-RUN apt-get update && apt-get -qq install git
+RUN apt-get update && apt-get -qq install git cmake zip libelf1 libffi7 libelf-dev libffi-dev make gcc g++ git flex bison python libyaml-dev
 RUN git clone https://github.com/meulengracht/vali-toolchain
-RUN mkdir -p $CROSS_PATH && cd vali-toolchain && ./depends.sh && ./checkout.sh && ./build-cross.sh
+RUN mkdir -p $CROSS_PATH && cd vali-toolchain && python get-pip.py && \
+    pip install prettytable Mako pyaml dateutils --upgrade && \
+    ./depends.sh && ./checkout.sh && ./build-cross.sh
 
 # 
 FROM ubuntu
