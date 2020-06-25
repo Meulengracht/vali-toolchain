@@ -9,6 +9,7 @@ ARG CROSS_PATH=/usr/workspace/toolchain-out
 WORKDIR /usr/workspace/
 
 ENV CROSS=$CROSS_PATH
+ENV DEBIAN_FRONTEND=noninteractive 
 
 # Install git to clone the toolchain
 RUN apt-get update && apt-get -qq install git cmake libelf1 libffi7 libelf-dev libffi-dev make gcc g++ git flex bison python libyaml-dev
