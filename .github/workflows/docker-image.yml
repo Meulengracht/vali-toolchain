@@ -20,7 +20,7 @@ jobs:
         # Username used to log in to a Docker registry. If not set then no login will occur
         username: fadekraft
         # Password or personal access token used to log in to a Docker registry. If not set then no login will occur
-        password: dce8e094-6235-4f16-9beb-db93b0909ba1
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
         # Docker repository to tag the image with
         repository: valios/vali-toolchain
         # Automatically tags the built image with the git reference as per the readme
