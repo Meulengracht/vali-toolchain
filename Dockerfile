@@ -14,6 +14,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 COPY . .
 
 # Install git to clone the toolchain
+RUN env | sort > env.intermediate
 RUN mkdir -p $CROSS_PATH
 RUN apt-get update && apt-get -y -qq install git cmake libelf1 libffi7 libelf-dev libffi-dev make gcc g++ git flex bison python libyaml-dev
 RUN python get-pip.py && pip install prettytable Mako pyaml dateutils --upgrade
@@ -25,6 +26,9 @@ RUN cd output && make && make install
 # Now we setup the environment for using the cross-compiler
 FROM ubuntu:latest
 
+# Import arg from previous stage
+ARG CROSS_PATH
+
 # Setup environmental variables
 ENV CROSS=$CROSS_PATH
 
@@ -33,6 +37,8 @@ WORKDIR /usr/workspace/
 
 # copy all the files to the container
 RUN mkdir -p $CROSS_PATH
+
+COPY --from=intermediate /usr/workspace/vali-toolchain/env.intermediate .
 COPY --from=intermediate $CROSS_PATH $CROSS_PATH
 
 # Start the bash command line
