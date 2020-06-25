@@ -32,7 +32,7 @@ ENV CROSS=$CROSS_PATH
 WORKDIR /usr/workspace/
 
 # copy all the files to the container
-COPY mkdir -p $CROSS_PATH
+RUN mkdir -p $CROSS_PATH
 COPY --from=intermediate $CROSS_PATH $CROSS_PATH
 
 # Start the bash command line
