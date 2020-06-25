@@ -16,7 +16,7 @@ COPY . .
 
 # Install git to clone the toolchain
 RUN mkdir -p $CROSS_PATH
-RUN apt-get update && apt-get -y -qq --no-install-recommends install git cmake libelf1 libffi7 libelf-dev libffi-dev make gcc g++ git flex bison python libyaml-dev
+RUN apt-get update && apt-get -y -qq install git cmake libelf1 libffi7 libelf-dev libffi-dev make gcc g++ git flex bison python libyaml-dev
 RUN python get-pip.py && pip install prettytable Mako pyaml dateutils --upgrade
 RUN ./checkout.sh
 RUN mkdir -p output && cd output && \
