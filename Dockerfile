@@ -11,7 +11,7 @@ WORKDIR /usr/workspace/
 ENV CROSS=$CROSS_PATH
 
 # Install git to clone the toolchain
-RUN apt-get update && apt-get install git
+RUN apt-get update && apt-get -qq install git
 RUN git clone https://github.com/meulengracht/vali-toolchain && cd vali-toolchain
 RUN mkdir -p $CROSS_PATH && .\depends.sh && .\checkout.sh && .\build-cross.sh
 
