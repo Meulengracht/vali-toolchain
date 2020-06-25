@@ -11,7 +11,7 @@ WORKDIR /usr/workspace/
 ENV CROSS=$CROSS_PATH
 
 # Install git to clone the toolchain
-RUN apt-get update && apt-get -qq install git cmake zip libelf1 libffi7 libelf-dev libffi-dev make gcc g++ git flex bison python libyaml-dev
+RUN apt-get update && apt-get -qq install git cmake libelf1 libffi7 libelf-dev libffi-dev make gcc g++ git flex bison python libyaml-dev
 RUN git clone https://github.com/meulengracht/vali-toolchain
 RUN mkdir -p $CROSS_PATH && cd vali-toolchain && python get-pip.py && \
     pip install prettytable Mako pyaml dateutils --upgrade && \
