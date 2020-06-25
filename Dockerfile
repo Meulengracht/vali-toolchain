@@ -15,7 +15,7 @@ RUN apt-get update && apt-get -qq install git cmake zip libelf1 libffi7 libelf-d
 RUN git clone https://github.com/meulengracht/vali-toolchain
 RUN mkdir -p $CROSS_PATH && cd vali-toolchain && python get-pip.py && \
     pip install prettytable Mako pyaml dateutils --upgrade && \
-    ./depends.sh && ./checkout.sh && ./build-cross.sh
+    ./checkout.sh && ./build-cross.sh
 
 # 
 FROM ubuntu
