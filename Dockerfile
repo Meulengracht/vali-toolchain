@@ -13,12 +13,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Copy the shell scripts to container
 COPY . .
 
-# Install git to clone the toolchain
+# Install the required packages needed to build the toolchain
 RUN env | sort > env.intermediate
 RUN mkdir -p $CROSS_PATH
 RUN apt-get update && apt-get -y -qq install git cmake libelf1 libffi7 libelf-dev libffi-dev make gcc g++ git flex bison python libyaml-dev
 RUN python get-pip.py && pip install prettytable Mako pyaml dateutils --upgrade
-RUN ./checkout.sh
+RUN sed -i 's/\r$//' ./checkout.sh && chmod +x ./checkout.sh && ./checkout.sh
 RUN mkdir -p output && cd output && \
     cmake -G "Unix Makefiles" -DLLVM_TEMPORARILY_ALLOW_OLD_TOOLCHAIN=True -DLLVM_ENABLE_EH=True -DLLVM_ENABLE_RTTI=True -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=Off -DLLVM_INCLUDE_EXAMPLES=Off -DCMAKE_INSTALL_PREFIX=$CROSS_PATH -DLLVM_DEFAULT_TARGET_TRIPLE=i386-pc-win32-itanium-coff ../sources/llvm
 RUN cd output && make && make install
@@ -38,7 +38,7 @@ WORKDIR /usr/workspace/
 # copy all the files to the container
 RUN mkdir -p $CROSS_PATH
 
-COPY --from=intermediate /usr/workspace/vali-toolchain/env.intermediate .
+COPY --from=intermediate /usr/workspace/toolchain/env.intermediate .
 COPY --from=intermediate $CROSS_PATH $CROSS_PATH
 
 # Start the bash command line
