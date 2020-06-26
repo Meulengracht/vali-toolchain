@@ -27,7 +27,7 @@ RUN cd output && make && make install
 FROM ubuntu:latest
 
 # Import arg from previous stage
-ARG CROSS_PATH
+ARG CROSS_PATH=/usr/workspace/toolchain-out
 
 # Setup environmental variables
 ENV CROSS=$CROSS_PATH
