@@ -40,7 +40,7 @@ RUN apt-get update \
     #
     # Install vali dependencies for development
     && mkdir -p $CROSS_PATH \
-    && apt-get install git \
+    && apt-get -y install git \
     #
     # Clean up
     && apt-get autoremove -y \
