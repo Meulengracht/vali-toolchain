@@ -35,9 +35,19 @@ ENV CROSS=$CROSS_PATH
 # Set the directory
 WORKDIR /usr/workspace/
 
-# copy all the files to the container
-RUN mkdir -p $CROSS_PATH
+# Configure apt and install only basic required packages
+RUN apt-get update \
+    #
+    # Install vali dependencies for development
+    && mkdir -p $CROSS_PATH \
+    && apt-get install git \
+    #
+    # Clean up
+    && apt-get autoremove -y \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
 
+# copy all the files to the container
 COPY --from=intermediate /usr/workspace/toolchain/env.intermediate .
 COPY --from=intermediate $CROSS_PATH $CROSS_PATH
 
