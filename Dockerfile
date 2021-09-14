@@ -16,7 +16,7 @@ COPY . .
 # Install the required packages needed to build the toolchain
 RUN env | sort > env.intermediate
 RUN mkdir -p $CROSS_PATH
-RUN apt-get update && apt-get -y -qq install git cmake libelf1 libffi7 libelf-dev libffi-dev make gcc g++ git flex bison python python3 libyaml-dev
+RUN apt-get update && apt-get -y -qq install git cmake libelf1 libffi7 libelf-dev libffi-dev make gcc g++ git flex bison python python3 python3-venv libyaml-dev
 RUN python get-pip.py && pip install prettytable Mako pyaml dateutils --upgrade
 RUN sed -i 's/\r$//' ./checkout.sh && chmod +x ./checkout.sh && ./checkout.sh
 RUN mkdir -p output && cd output && \
